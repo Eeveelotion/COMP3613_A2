@@ -24,6 +24,33 @@ $ pip install -r requirements.txt
 ```bash
 flask init
 ```
+Seed Data (created by flask init)
+
+Employers:
+
+-Umbrella Corporation — password: pass
+
+-Vault-Tec — password: pass
+
+Staff
+
+-Alice
+
+-Bob 
+
+Students
+
+-Shania 
+
+-Priyanka 
+
+-Diaz 
+
+Internships (pre-created)
+
+-Backend Intern — owner: Umbrella Corporation — description: Flask + SQLAlchemy basics
+
+-UX Research Intern — owner: Vault-Tec — description: Assist with studies and analysis
 
 ## 2) Create role users (manual) - Create extra Employer, Staff, or Student accounts by name + password.
 
@@ -49,7 +76,7 @@ COMMAND : flask create student <name> <password>
 #Example
 flask create student Jace pass123
 ```
-
+ 
 ## 3) Employer commands: 
 
 ### A) Create an internship: 
