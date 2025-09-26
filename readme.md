@@ -27,23 +27,23 @@ flask init
 Seed Data (created by flask init)
 
 ### Employers
-| Name                  | Password |
-|-----------------------|----------|
-| Umbrella Corporation  | `pass`   |
-| Vault-Tec             | `pass`   |
+| Name |
+|------|
+| Umbrella Corporation |
+| Vault-Tec |
 
 ### Staff
-| Name  | Password |
-|-------|----------|
-| Alice | `pass`   |
-| Bob   | `pass`   |
+| Name |
+|------|
+| Alice |
+| Bob |
 
 ### Students
-| Name     | Password |
-|----------|----------|
-| Shania   | `pass`   |
-| Priyanka | `pass`   |
-| Diaz     | `pass`   |
+| Name |
+|------|
+| Shania |
+| Priyanka |
+| Diaz |
 
 ### Internships (pre-created)
 | Title              | Owner                 | Description                     |
