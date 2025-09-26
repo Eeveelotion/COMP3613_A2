@@ -26,31 +26,30 @@ flask init
 ```
 Seed Data (created by flask init)
 
-Employers:
+### Employers
+| Name                  | Password |
+|-----------------------|----------|
+| Umbrella Corporation  | `pass`   |
+| Vault-Tec             | `pass`   |
 
--Umbrella Corporation — password: pass
+### Staff
+| Name  | Password |
+|-------|----------|
+| Alice | `pass`   |
+| Bob   | `pass`   |
 
--Vault-Tec — password: pass
+### Students
+| Name     | Password |
+|----------|----------|
+| Shania   | `pass`   |
+| Priyanka | `pass`   |
+| Diaz     | `pass`   |
 
-Staff
-
--Alice
-
--Bob 
-
-Students
-
--Shania 
-
--Priyanka 
-
--Diaz 
-
-Internships (pre-created)
-
--Backend Intern — owner: Umbrella Corporation — description: Flask + SQLAlchemy basics
-
--UX Research Intern — owner: Vault-Tec — description: Assist with studies and analysis
+### Internships (pre-created)
+| Title              | Owner                 | Description                     |
+|--------------------|-----------------------|---------------------------------|
+| Backend Intern     | Umbrella Corporation  | Flask + SQLAlchemy basics       |
+| UX Research Intern | Vault-Tec             | Assist with studies and analysis |
 
 ## 2) Create role users (manual) - Create extra Employer, Staff, or Student accounts by name + password.
 
