@@ -46,10 +46,10 @@ Seed Data (created by flask init)
 | Diaz |
 
 ### Internships (pre-created)
-| Title              | Owner                 | Description                     |
-|--------------------|-----------------------|---------------------------------|
-| Backend Intern     | Umbrella Corporation  | Flask + SQLAlchemy basics       |
-| UX Research Intern | Vault-Tec             | Assist with studies and analysis |
+| Title              | Owner                 | Description                               |
+|--------------------|-----------------------|-------------------------------------------|
+| Backend Intern     | Umbrella Corporation  | Flask + SQLAlchemy basics                 |
+| UX Dev Intern      | Vault-Tec                  | Development and design of user interfaces |
 
 ## 2) Create role users (manual) - Create extra Employer, Staff, or Student accounts by name + password.
 
