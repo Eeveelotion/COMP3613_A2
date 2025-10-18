@@ -14,8 +14,8 @@ def initialize():
     create_user('bob', 'bobpass')
 
     # --- Employers ---
-    e1 = Employer(name='Umbrella Corporation', password='pass')
-    e2 = Employer(name='Vault-Tec',   password='pass')
+    e1 = Employer(company_name='Umbrella Corporation', password='pass')
+    e2 = Employer(company_name='Vault-Tec',   password='pass')
 
     # --- Staff ---
     s1 = Staff(name='Alice', password='pass')

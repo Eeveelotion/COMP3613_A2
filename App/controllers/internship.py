@@ -2,10 +2,21 @@ from App.database import db
 from App.models import Internship, Employer
 
 def get_internship_by_id(internship_id):
-    return Internship.query.get(internship_id)
+    internship = Internship.query.get(internship_id)
+    return {'id': internship.id, 
+            'title': internship.title, 
+            'description': internship.description, 
+            'employer_id': internship.employer_id
+            } if internship else None
+            
 
 def get_internship_by_title(title):
-    return Internship.by_title(title)
+    internship = Internship.by_title(title)
+    return {'id': internship.id, 
+            'title': internship.title, 
+            'description': internship.description, 
+            'employer_id': internship.employer_id
+            } if internship else None
 
 def create_internship(employer_id, title, description=''):
     employer = Employer.query.get(employer_id)
