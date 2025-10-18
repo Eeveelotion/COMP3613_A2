@@ -1,15 +1,11 @@
 from App.models import User
 from App.database import db
 
-def create_user(username, password):
-    newuser = User(username=username, password=password)
+def create_user( password):
+    newuser = User(password=password)
     db.session.add(newuser)
     db.session.commit()
     return newuser
-
-def get_user_by_username(username):
-    result = db.session.execute(db.select(User).filter_by(username=username))
-    return result.scalar_one_or_none()
 
 def get_user(id):
     return db.session.get(User, id)
@@ -24,11 +20,11 @@ def get_all_users_json():
     users = [user.get_json() for user in users]
     return users
 
-def update_user(id, username):
-    user = get_user(id)
-    if user:
-        user.username = username
-        # user is already in the session; no need to re-add
-        db.session.commit()
-        return True
-    return None
+def update_user(id, new_password = None):
+    user = User.get.query(id)
+    if not user:
+        return False, f'User with ID {id} does not exist.'
+    if new_password:
+        user.set_password(new_password)
+    db.session.commit()
+    return True, f'User with ID {id} updated.'

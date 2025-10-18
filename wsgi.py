@@ -13,16 +13,11 @@ from App.models import (
     Staff,
     Student,
     Internship,
-    ShortlistEntry,
+    Shortlist,
 )
 
 
-from App.controllers import (
-    create_user,
-    get_all_users_json,
-    get_all_users,
-    initialize,  
-)
+from App.controllers import *
 
 
 app = create_app()
@@ -35,26 +30,25 @@ migrate = get_migrate(app)
 def init():
     initialize()
 
-# ======================================================================================
-# USER COMMANDS (template)
-# ======================================================================================
-user_cli = AppGroup('user', help='User object commands (template)')
+# # ======================================================================================
+# # USER COMMANDS (template)
+# # ======================================================================================
+# user_cli = AppGroup('user', help='User object commands (template)')
 
-@user_cli.command("create", help="Create a basic template user")
-@click.argument("username")
-@click.argument("password")
-def user_create(username, password):
-    create_user(username, password)
-    print(f'user "{username}" created')
+# @user_cli.command("create", help="Create a basic template user")
+# @click.argument("password")
+# def user_create( password):
+#     create_user(password)
+#     print(f'user created')
 
-@user_cli.command("list", help="List all template users")
-def user_list():
-    users = get_all_users()
-    print([u.toDict() for u in users])
+# @user_cli.command("list", help="List all template users")
+# def user_list():
+#     users = get_all_users()
+#     print([u.toDict() for u in users])
 
-@user_cli.command("list-json", help="List all template users as JSON")
-def user_list_json():
-    print(get_all_users_json())
+# @user_cli.command("list-json", help="List all template users as JSON")
+# def user_list_json():
+#     print(get_all_users_json())
 
 # Tests (template-style)
 test_cli = AppGroup('test', help='Run tests')
@@ -63,7 +57,7 @@ test_cli = AppGroup('test', help='Run tests')
 def run_all_tests():
     sys.exit(pytest.main(["-x", "App/tests"]))
 
-app.cli.add_command(user_cli)
+# app.cli.add_command(user_cli)
 app.cli.add_command(test_cli)
 
 # ======================================================================================
@@ -72,40 +66,22 @@ app.cli.add_command(test_cli)
 create_cli = AppGroup('create', help='Manually create role users (Employer/Staff/Student)')
 
 @create_cli.command('employer', help='Create an Employer: flask create employer <name> <password>')
-@click.argument('name')
+@click.argument('company_name')
 @click.argument('password')
-def create_employer(name, password):
-    if Employer.by_name(name):
-        print(f'Employer "{name}" already exists.')
-        return
-    e = Employer(name=name, password=password)
-    db.session.add(e)
-    db.session.commit()
-    print(f'Employer "{name}" created.')
+def create_new_employer(company_name, password):
+    create_employer(company_name, password)
 
 @create_cli.command('staff', help='Create a Staff: flask create staff <name> <password>')
 @click.argument('name')
 @click.argument('password')
-def create_staff(name, password):
-    if Staff.by_name(name):
-        print(f'Staff "{name}" already exists.')
-        return
-    s = Staff(name=name, password=password)
-    db.session.add(s)
-    db.session.commit()
-    print(f'Staff "{name}" created.')
+def create_new_staff(name, password):
+    create_staff(name, password)
 
 @create_cli.command('student', help='Create a Student: flask create student <name> <password>')
 @click.argument('name')
 @click.argument('password')
-def create_student(name, password):
-    if Student.by_name(name):
-        print(f'Student "{name}" already exists.')
-        return
-    st = Student(name=name, password=password)
-    db.session.add(st)
-    db.session.commit()
-    print(f'Student "{name}" created.')
+def create_new_student(name, password):
+    create_student(name, password)
 
 app.cli.add_command(create_cli)
 
