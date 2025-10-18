@@ -10,9 +10,6 @@ def initialize():
     db.drop_all()
     db.create_all()
 
-   
-    create_user('bob', 'bobpass')
-
     # --- Employers ---
     e1 = Employer(company_name='Umbrella Corporation', password='pass')
     e2 = Employer(company_name='Vault-Tec',   password='pass')

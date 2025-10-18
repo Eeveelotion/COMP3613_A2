@@ -9,6 +9,7 @@ class User(db.Model):
 
     def __init__(self, password):
         self.set_password(password)
+        self.user_type = 'user'
 
     def set_password(self, password):
         """Create hashed password."""

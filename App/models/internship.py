@@ -7,7 +7,7 @@ class Internship(db.Model):
     description = db.Column(db.Text, default='')
     employer_id = db.Column(db.Integer, db.ForeignKey('employers.id'), nullable=False)
 
-    shortlist_entries = db.relationship('ShortlistEntry', backref='internship', lazy=True)
+    shortlist_entries = db.relationship('Shortlist', backref='internship', lazy=True)
 
     def __init__(self, title, description, employer_id):
         self.title = title
