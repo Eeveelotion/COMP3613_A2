@@ -18,14 +18,6 @@ def create_student(name, password):
     db.session.commit()
     return True, f'Student "{name}" created.'
 
-def delete_student(id):
-    student = Student.query.get(id)
-    if not student:
-        return False, f'Student with ID {id} does not exist.'
-    db.session.delete(student)
-    db.session.commit()
-    return True, f'Student with ID {id} deleted.'
-
 def update_student_info(student_id, new_name=None, new_password=None):
     student = Student.query.get(student_id)
     if not student:

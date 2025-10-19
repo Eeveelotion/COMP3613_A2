@@ -4,12 +4,13 @@ from App.database import db
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_type =  db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
     __mapper_args__ = {'polymorphic_identity': 'user', 'polymorphic_on': user_type}
 
-    def __init__(self, password):
+    def __init__(self, name, password):
+        self.name = name
         self.set_password(password)
-        self.user_type = 'user'
 
     def set_password(self, password):
         """Create hashed password."""

@@ -1,4 +1,4 @@
-from App.models import User
+from App.models import User, Staff
 from App.database import db
 
 def create_user( password):
@@ -28,3 +28,13 @@ def update_user(id, new_password = None):
         user.set_password(new_password)
     db.session.commit()
     return True, f'User with ID {id} updated.'
+
+def delete_user(id):
+    user = User.query.get(id)
+    if Staff.query.get(id):
+        return False, f'Cannot delete Staff user with ID {id}.'
+    if not user:
+        return False, f'User with ID {id} does not exist.'
+    db.session.delete(user)
+    db.session.commit()
+    return True, f'User with ID {id} deleted.'

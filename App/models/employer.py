@@ -4,7 +4,6 @@ from App.models.user import User
 class Employer(User):
     __tablename__ = 'employers'
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    company_name = db.Column(db.String(120), unique=True, nullable=False)
 
     internships = db.relationship('Internship', backref='employer', lazy=True)
     __mapper_args__ = {
@@ -12,7 +11,7 @@ class Employer(User):
     }
 
     def __init__(self, company_name, password):
-        self.company_name = company_name
+        self.name = company_name
         self.set_password(password)
         self.user_type = 'employer'
 
@@ -28,5 +27,5 @@ class Employer(User):
     def to_json(self):
         return {
             'id': self.id,
-            'company_name': self.company_name
+            'company_name': self.name
         }

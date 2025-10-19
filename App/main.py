@@ -10,11 +10,10 @@ from App.config import load_config
 
 
 from App.controllers import (
-    setup_jwt,
-    add_auth_context
+    setup_jwt
 )
 
-from App.views import views, setup_admin
+from App.views import views
 
 
 
@@ -26,13 +25,11 @@ def create_app(overrides={}):
     app = Flask(__name__, static_url_path='/static')
     load_config(app, overrides)
     CORS(app)
-    add_auth_context(app)
     photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
     configure_uploads(app, photos)
     add_views(app)
     init_db(app)
     jwt = setup_jwt(app)
-    setup_admin(app)
     @jwt.invalid_token_loader
     @jwt.unauthorized_loader
     def custom_unauthorized_response(error):

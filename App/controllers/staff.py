@@ -10,6 +10,10 @@ def get_staff_by_name(name):
 def get_all_staff():
     return Staff.query.all()
 
+def is_staff(id):
+    staff = Staff.query.get(id)
+    return staff is not None
+
 def create_staff(name, password):
     if Staff.by_name(name):
         return False, f'Staff member "{name}" already exists.'
@@ -17,14 +21,6 @@ def create_staff(name, password):
     db.session.add(staff)
     db.session.commit()
     return True, f'Staff member "{name}" created.'
-
-def delete_staff(staff_id):
-    staff = Staff.query.get(staff_id)
-    if not staff:
-        return False, f'Staff member with ID {staff_id} does not exist.'
-    db.session.delete(staff)
-    db.session.commit()
-    return True, f'Staff member with ID {staff_id} deleted.'
 
 def update_staff_info(staff_id, new_name=None, new_password=None):
     staff = Staff.query.get(staff_id)

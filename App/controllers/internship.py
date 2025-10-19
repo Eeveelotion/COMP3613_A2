@@ -1,6 +1,10 @@
 from App.database import db 
 from App.models import Internship, Employer
 
+def belongs_to_employer(internship_id, employer_id):
+    internship = Internship.query.get(internship_id)
+    return internship.employer_id == employer_id if internship else False
+
 def get_internship_by_id(internship_id):
     internship = Internship.query.get(internship_id)
     return {'id': internship.id, 
@@ -9,7 +13,6 @@ def get_internship_by_id(internship_id):
             'employer_id': internship.employer_id
             } if internship else None
             
-
 def get_internship_by_title(title):
     internship = Internship.by_title(title)
     return {'id': internship.id, 
@@ -17,6 +20,14 @@ def get_internship_by_title(title):
             'description': internship.description, 
             'employer_id': internship.employer_id
             } if internship else None
+
+def get_all_employer_internships(employer_id):
+    internships = Internship.query.filter_by(employer_id=employer_id).all()
+    return [{'id': internship.id, 
+            'title': internship.title, 
+            'description': internship.description, 
+            'employer_id': internship.employer_id
+            } for internship in internships]
 
 def create_internship(employer_id, title, description=''):
     employer = Employer.query.get(employer_id)

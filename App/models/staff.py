@@ -4,7 +4,6 @@ from App.models.user import User
 class Staff(User):
     __tablename__ = 'staff'
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
     __mapper_args__ = {
       'polymorphic_identity': 'staff',
     }
