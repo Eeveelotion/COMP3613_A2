@@ -3,9 +3,9 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from App.controllers import (
     belongs_to_employer,
-    get_employer_by_id,
-    get_student_by_id,
-    get_staff_by_id,
+    is_staff,
+    is_employer,
+    is_student,
     get_shortlist_by_internship,
     get_shortlist_by_student,
     create_shortlist_position,
@@ -29,7 +29,7 @@ def get_internship_shortlist(internship_id):
 @jwt_required()
 def get_student_shortlist(student_id):
     student_id = get_jwt_identity()
-    if get_student_by_id(student_id) is None:
+    if is_student(student_id) is None:
         return jsonify({"Error": "Unauthorized"}), 403
     shortlisted_positions = get_shortlist_by_student(student_id)
     return jsonify(shortlisted_positions), 200
@@ -38,7 +38,7 @@ def get_student_shortlist(student_id):
 @jwt_required()
 def create_shortlist_position():
     staff_id = get_jwt_identity()
-    if get_staff_by_id(staff_id) is None:
+    if is_staff(staff_id) is None:
         return jsonify({"Error": "Unauthorized"}), 403
     data = request.get_json()
     success, message = create_shortlist_position(
@@ -53,7 +53,7 @@ def create_shortlist_position():
 @jwt_required()
 def delete_shortlist_position(shortlist_id):
     staff_id = get_jwt_identity()
-    if get_staff_by_id(staff_id) is None:
+    if is_staff(staff_id) is None:
         return jsonify({"Error": "Unauthorized"}), 403
     success, message = delete_shortlist_position(shortlist_id)
     status_code = 200 if success else 400
@@ -63,7 +63,7 @@ def delete_shortlist_position(shortlist_id):
 @jwt_required()
 def update_shortlist_status(shortlist_id):
     employer_id = get_jwt_identity()
-    if get_employer_by_id(employer_id) is None:
+    if is_employer(employer_id) is None:
         return jsonify({"Error": "Unauthorized"}, 403)
     data = request.get_json()
     success, message = update_shortlist_status(

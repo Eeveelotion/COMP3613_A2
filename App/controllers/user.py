@@ -38,3 +38,15 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
     return True, f'User with ID {id} deleted.'
+
+def is_staff(id):
+    user = User.query.get(id)
+    return user is not None and user.user_type == "staff"
+
+def is_student(id):
+    user = User.query.get(id)
+    return user is not None and user.user_type == "student"
+
+def is_employer(id):
+    user = User.query.id(id)
+    return user is not None and user.user_type == "employer"

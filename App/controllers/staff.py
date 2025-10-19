@@ -10,10 +10,6 @@ def get_staff_by_name(name):
 def get_all_staff():
     return Staff.query.all()
 
-def is_staff(id):
-    staff = Staff.query.get(id)
-    return staff is not None
-
 def create_staff(name, password):
     if Staff.by_name(name):
         return False, f'Staff member "{name}" already exists.'

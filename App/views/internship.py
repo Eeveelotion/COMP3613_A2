@@ -3,8 +3,8 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from App.controllers import (
     belongs_to_employer,
+    is_employer,
     get_all_employer_internships,
-    get_employer_by_id,
     update_internship,
     delete_internship,
     create_internship,
@@ -17,7 +17,7 @@ internship_views = Blueprint('internship_views', __name__, template_folder='../t
 @jwt_required()
 def list_internships():
     employer_id = get_jwt_identity()
-    if get_employer_by_id(employer_id) is None:
+    if is_employer(employer_id) is None:
         return jsonify({"Error": "Unauthorized"}), 403
     internships = get_all_employer_internships(employer_id)
     return jsonify(internships), 200
@@ -26,7 +26,7 @@ def list_internships():
 @jwt_required()
 def create_internship():
     employer_id = get_jwt_identity()
-    if get_employer_by_id(employer_id) is None:
+    if is_employer(employer_id) is None:
         return jsonify({"Error": "Unauthorized"}), 403
     data = request.get_json()
     success, message = create_internship(

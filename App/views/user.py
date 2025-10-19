@@ -27,7 +27,7 @@ def authenticate():
 @user_views.route('/users', methods=['GET'])
 @jwt_required()
 def list_employers():
-    if not is_staff:
+    if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
     employers = get_all_employers()
     return jsonify(employers), 200
@@ -35,7 +35,7 @@ def list_employers():
 @user_views.route('/students', methods=['GET'])
 @jwt_required()
 def list_students():
-    if not is_staff:
+    if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
     students = get_all_students()
     return jsonify(students), 200
