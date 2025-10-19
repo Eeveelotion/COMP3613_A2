@@ -25,5 +25,5 @@ class Staff(User):
     def to_json(self):
         return {
             'id': self.id,
-            'name': self.company_name
+            'name': self.name
         }

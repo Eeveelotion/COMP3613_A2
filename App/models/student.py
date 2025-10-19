@@ -4,7 +4,15 @@ from App.models.user import User
 class Student(User):
     __tablename__ = 'students'
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    shortlist_entries = db.relationship('Shortlist', backref='student', lazy=True)
+    
+    shortlist_entries = db.relationship(
+        'Shortlist', 
+        backref='student', 
+        cascade='all, delete',
+        passive_deletes=True,
+        lazy=True
+    )
+
     __mapper_args__ = {
       'polymorphic_identity': 'student',
     }

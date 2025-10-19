@@ -7,7 +7,7 @@ from App.models import User
 from App.controllers import (
     create_user,
     get_all_users_json,
-    login,
+    jwt_authenticate,
     get_user,
     get_user_by_username,
     update_user
@@ -58,7 +58,7 @@ def empty_db():
 
 def test_authenticate():
     user = create_user("bob", "bobpass")
-    assert login("bob", "bobpass") != None
+    assert jwt_authenticate("bob", "bobpass") != None
 
 class UsersIntegrationTests(unittest.TestCase):
 

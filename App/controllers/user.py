@@ -1,8 +1,8 @@
 from App.models import User, Staff
 from App.database import db
 
-def create_user( password):
-    newuser = User( password=password)
+def create_user(name, password):
+    newuser = User(name = name, password=password)
     db.session.add(newuser)
     db.session.commit()
     return newuser
@@ -11,13 +11,14 @@ def get_user(id):
     return db.session.get(User, id)
 
 def get_all_users():
-    return db.session.scalars(db.select(User)).all()
+    users = db.session.scalars(db.select(User)).all()
+    return [{'user_id': user.id, 'name': user.name, 'user_type': user.user_type} for user in users]
 
 def get_all_users_json():
-    users = get_all_users()
+    users = db.session.scalars(db.select(User)).all()
     if not users:
         return []
-    users = [user.get_json() for user in users]
+    users = [user.to_json() for user in users]
     return users
 
 def update_user(id, new_password = None):
@@ -48,5 +49,5 @@ def is_student(id):
     return user is not None and user.user_type == "student"
 
 def is_employer(id):
-    user = User.query.id(id)
+    user = User.query.get(id)
     return user is not None and user.user_type == "employer"

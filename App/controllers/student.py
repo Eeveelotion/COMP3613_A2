@@ -8,7 +8,8 @@ def get_student_by_name(name):
     return Student.by_name(name)
 
 def get_all_students():
-    return Student.query.all()
+    students =Student.query.all()
+    return [{"name": s.name, "id": s.id} for s in students]
 
 def create_student(name, password):
     if Student.by_name(name):
@@ -23,7 +24,7 @@ def update_student_info(student_id, new_name=None, new_password=None):
     if not student:
         return False, f'Student with ID {student_id} does not exist.'
     if new_name:
-        if Student.by_name(new_name):
+        if Student.by_name(new_name) and student.name != new_name:
             return False, f'Student "{new_name}" already exists.'
         student.name = new_name
     if new_password:

@@ -49,6 +49,7 @@ def create_shortlist_position(student_id, internship_id, staff_id):
     db.session.add(new_entry)
     try:
         db.session.commit()
+        return True, f'Student ID {student_id} shortlisted for Internship ID {internship_id}.'
     except Exception as e:
         db.session.rollback()
         return False, f'Error: Student ID {student_id} is already shortlisted for Internship ID {internship_id}.'
@@ -65,7 +66,7 @@ def update_shortlist_status(shortlist_id, employer_id, new_status):
     entry = Shortlist.query.get(shortlist_id)
     if not entry:
         return False, f'Shortlist entry with ID {shortlist_id} does not exist.'
-    if entry.internship.employer_id != employer_id:
+    if int(entry.internship.employer_id) != int(employer_id):
         return False, f'Employer with ID {employer_id} does not own the internship for this shortlist entry.'
     new_status = (new_status or '').strip().upper()
     if new_status not in ("ACCEPTED", "REJECTED"):

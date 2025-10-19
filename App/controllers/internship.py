@@ -3,7 +3,9 @@ from App.models import Internship, Employer
 
 def belongs_to_employer(internship_id, employer_id):
     internship = Internship.query.get(internship_id)
-    return internship.employer_id == employer_id if internship else False
+    if internship:
+     return int(internship.employer_id) == int(employer_id)
+    return False
 
 def get_internship_by_id(internship_id):
     internship = Internship.query.get(internship_id)
@@ -35,16 +37,18 @@ def create_internship(employer_id, title, description=''):
         return False, f'Employer with ID {employer_id} does not exist.'
     if not title or not title.strip():
         return False, "Title cannot be empty."
-    if Internship.query.filter_by(title= title.strip()).first():
+    
+    new_title = title=title.strip() +' ' + f'({employer.name})'
+    if Internship.query.filter_by(title= new_title).first():
         return False, f'Internship "{title}" already exists.'
     new_internship = Internship(
-        title=title.strip() +' ' + f'({employer.company_name})',
+        title=title.strip() +' ' + f'({employer.name})',
         description=(description or '').strip(),
         employer_id = employer_id
     )
     db.session.add(new_internship)
     db.session.commit()
-    return True, f'Internship "{title}" created by {employer.company_name}.'
+    return True, f'Internship "{title}" created by {employer.name}.'
 
 def delete_internship(internship_id):
     internship = Internship.query.get(internship_id)
@@ -54,15 +58,17 @@ def delete_internship(internship_id):
     db.session.commit()
     return True, f'Internship with ID {internship_id} deleted.'
 
-def update_internship(title=None, description=None):
-    internship = Internship.query.filter_by(title=title).first()
+def update_internship_info(internship_id, title=None, description=None):
+    internship = Internship.query.filter_by(id=internship_id).first()
     if not internship:
-        return False, f'Internship with title "{title}" does not exist.'
+        return False, f'Internship with id "{internship_id}" does not exist.'
     if title:
-        if Internship.query.filter_by(title=title).first():
+        new_title = title.strip() + ' ' + f'({internship.employer.name})'
+        exising_internship = Internship.query.filter_by(title=new_title).first()
+        if internship.id != exising_internship.id if exising_internship else None:
             return False, f'Internship with title "{title}" already exists.'
-        internship.title = title
-    if description is not None:
+        internship.title = new_title
+    if description:
         internship.description = description
     db.session.commit()
     return True, f'Internship with title "{title}" updated.'

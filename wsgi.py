@@ -33,22 +33,22 @@ def init():
 # # ======================================================================================
 # # USER COMMANDS (template)
 # # ======================================================================================
-# user_cli = AppGroup('user', help='User object commands (template)')
+user_cli = AppGroup('user', help='User object commands (template)')
 
-# @user_cli.command("create", help="Create a basic template user")
-# @click.argument("password")
-# def user_create( password):
-#     create_user(password)
-#     print(f'user created')
+@user_cli.command("create", help="Create a basic template user")
+@click.argument("password")
+@click.argument("name")
+def user_create( password, name):
+    create_user(password, name)
+    print(f'user created')
 
-# @user_cli.command("list", help="List all template users")
-# def user_list():
-#     users = get_all_users()
-#     print([u.toDict() for u in users])
+@user_cli.command("list", help="List all template users")
+def user_list():
+    print(get_all_users())
 
-# @user_cli.command("list-json", help="List all template users as JSON")
-# def user_list_json():
-#     print(get_all_users_json())
+@user_cli.command("list-json", help="List all template users as JSON")
+def user_list_json():
+    print(get_all_users_json())
 
 # Tests (template-style)
 test_cli = AppGroup('test', help='Run tests')
@@ -57,7 +57,7 @@ test_cli = AppGroup('test', help='Run tests')
 def run_all_tests():
     sys.exit(pytest.main(["-x", "App/tests"]))
 
-# app.cli.add_command(user_cli)
+app.cli.add_command(user_cli)
 app.cli.add_command(test_cli)
 
 # ======================================================================================
@@ -68,8 +68,8 @@ create_cli = AppGroup('create', help='Manually create role users (Employer/Staff
 @create_cli.command('employer', help='Create an Employer: flask create employer <name> <password>')
 @click.argument('company_name')
 @click.argument('password')
-def create_new_employer(company_name, password):
-    create_employer(company_name, password)
+def create_new_employer(name, password):
+    create_employer(name, password)
 
 @create_cli.command('staff', help='Create a Staff: flask create staff <name> <password>')
 @click.argument('name')
@@ -95,11 +95,7 @@ employer_cli = AppGroup('employer', help='Employer commands')
 @click.argument('title')
 @click.argument('description', required=False, default='')
 def employer_create_position(employer_name, title, description):
-    employer = Employer.by_name(employer_name)
-    if not employer:
-        print(f'Employer "{employer_name}" not found.')
-        return
-    ok, msg = employer.create_internship(title, description)
+    ok, msg = create_internship(title, description)
     print(msg)
 
 @employer_cli.command('decide', help='Accept/Reject a student: flask employer decide <employer_name> <internship_title> <student_name> <ACCEPTED|REJECTED>')

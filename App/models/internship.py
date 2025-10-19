@@ -5,9 +5,15 @@ class Internship(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), unique=True, nullable=False)
     description = db.Column(db.Text, default='')
-    employer_id = db.Column(db.Integer, db.ForeignKey('employers.id'), nullable=False)
+    employer_id = db.Column(db.Integer, db.ForeignKey('employers.id', ondelete='CASCADE'), nullable=False)
 
-    shortlist_entries = db.relationship('Shortlist', backref='internship', lazy=True)
+    shortlist_entries = db.relationship(
+        'Shortlist', 
+        backref='internship', 
+        cascade='all, delete',
+        passive_deletes=True,
+        lazy=True
+    )
 
     def __init__(self, title, description, employer_id):
         self.title = title

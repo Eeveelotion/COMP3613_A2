@@ -2,6 +2,9 @@ from .user import create_user
 from App.database import db
 from App.models import Employer, Staff, Student, Internship
 
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+
 def initialize():
     """
     Drops and recreates all tables, then seeds basic data.
@@ -11,8 +14,8 @@ def initialize():
     db.create_all()
 
     # --- Employers ---
-    e1 = Employer(company_name='Umbrella Corporation', password='pass')
-    e2 = Employer(company_name='Vault-Tec',   password='pass')
+    e1 = Employer(name='Umbrella Corporation', password='pass')
+    e2 = Employer(name='Vault-Tec',   password='pass')
 
     # --- Staff ---
     s1 = Staff(name='Alice', password='pass')
@@ -28,12 +31,12 @@ def initialize():
 
     # --- Internships ---
     i1 = Internship(
-        title='Backend Intern',
+        title='Backend Intern (Umbrella Corporation)',
         description='Flask + SQLAlchemy basics',
         employer_id=e1.id
     )
     i2 = Internship(
-        title='UX Dev Intern',
+        title='UX Dev Intern (Vault-Tec)',
         description='Development and design of user interfaces',
         employer_id=e2.id
     )
@@ -42,3 +45,9 @@ def initialize():
     db.session.commit()
 
     print("Database initialized and seeded with Employers, Staff, Students, and Internships.")
+
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
