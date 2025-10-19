@@ -16,7 +16,7 @@ def get_all_employers():
 def create_employer(name, password):
     if Employer.by_name(name):
         return False, f'Employer "{name}" already exists.'
-    employer = Employer(name=name, password='password')
+    employer = Employer(name=name, password=password)
     db.session.add(employer)
     db.session.commit()
     return True, f'Employer "{name}" created.'
