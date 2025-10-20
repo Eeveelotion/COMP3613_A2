@@ -35,10 +35,6 @@ def user_create( password, name):
 def user_list():
     print(get_all_users())
 
-@user_cli.command("list-json", help="List all template users as JSON")
-def user_list_json():
-    print(get_all_users_json())
-
 # Tests (template-style)
 test_cli = AppGroup('test', help='Run tests')
 

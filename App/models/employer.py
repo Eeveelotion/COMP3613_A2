@@ -26,13 +26,3 @@ class Employer(User):
     @classmethod
     def by_name(cls, name: str):
         return cls.query.filter_by(name=name).first()
-
-    # --- Domain behavior (business rules) ---
-    def __repr__(self):
-        return f'<Employer {self.name}>'
-    
-    def to_json(self):
-        return {
-            'id': self.id,
-            'name': self.name
-        }

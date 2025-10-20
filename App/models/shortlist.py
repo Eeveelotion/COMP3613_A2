@@ -10,5 +10,3 @@ class Shortlist(db.Model):
 
     __table_args__ = (db.UniqueConstraint('internship_id', 'student_id', name='shortlist_unique_pair'),)
 
-    def __repr__(self):
-        return f'<Shortlist internship={self.internship_id} student={self.student_id} status={self.status}>'

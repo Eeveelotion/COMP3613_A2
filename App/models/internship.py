@@ -24,7 +24,3 @@ class Internship(db.Model):
     @classmethod
     def by_title(cls, title: str):
         return cls.query.filter_by(title=title).first()
-
-    # --- Domain behavior ---
-    def __repr__(self):
-        return f'<Internship {self.title}>'

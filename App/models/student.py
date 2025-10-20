@@ -28,8 +28,6 @@ class Student(User):
         return cls.query.filter_by(name=name).first()
 
     # --- Domain behavior ---
-    def __repr__(self):
-        return f'<Student {self.name}>'
     
     def to_json(self):
         return {

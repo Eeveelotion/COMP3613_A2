@@ -8,9 +8,15 @@ class User(db.Model):
     password = db.Column(db.String(256), nullable=False)
     __mapper_args__ = {'polymorphic_identity': 'user', 'polymorphic_on': user_type}
 
+    # --- Lookups ---
+    @classmethod
+    def by_name(cls, name: str):
+        return cls.query.filter_by(name=name).first()
+
     def __init__(self, name, password):
         self.name = name
         self.set_password(password)
+        self.user_type = "staff"
 
     def set_password(self, password):
         """Create hashed password."""
@@ -23,4 +29,5 @@ class User(db.Model):
     def to_json(self):
         return {
             'id': self.id,
+            'name': self.name
         }

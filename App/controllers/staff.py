@@ -20,17 +20,3 @@ def create_staff(name, password):
     db.session.add(staff)
     db.session.commit()
     return True, f'Staff member "{name}" created.'
-
-def update_staff_info(staff_id, new_name=None, new_password=None):
-    staff = Staff.query.get(staff_id)
-    if not staff:
-        return False, f'Staff member with ID {staff_id} does not exist.'
-    if new_name:
-        if Staff.by_name(new_name):
-            return False, f'Staff member "{new_name}" already exists.'
-        staff.name = new_name
-    if new_password:
-        staff.set_password(new_password)
-    db.session.commit()
-    return True, f'Staff member with ID {staff_id} updated.'
-

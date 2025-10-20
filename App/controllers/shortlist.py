@@ -16,6 +16,7 @@ def get_shortlist_by_student_and_internship(student_id, internship_id):
         'id': shortlist_entry.id,
         'student_id': shortlist_entry.student_id,
         'internship_id': shortlist_entry.internship_id,
+        'added_by_staff_id': shortlist_entry.added_by_staff_id,
         'status': shortlist_entry.status,
     }
 

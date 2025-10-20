@@ -10,8 +10,7 @@ from App.controllers import (
     create_student,
     is_staff,
     delete_user,
-    update_employer_info,
-    update_student_info,
+    update_user
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -81,7 +80,7 @@ def update_employer(employer_id):
     if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
     data = request.get_json()
-    success, message = update_employer_info(employer_id, data.get("name", None), data.get("password",None))
+    success, message = update_user(employer_id, data.get("name", None), data.get("password",None))
     status_code = 200 if success else 400
     return jsonify({"message": message}), status_code
 
@@ -91,6 +90,6 @@ def update_student(student_id):
     if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
     data = request.get_json()
-    success, message = update_student_info(student_id, data.get("name", None), data.get("password", None))
+    success, message = update_user(student_id, data.get("name", None), data.get("password", None))
     status_code = 200 if success else 400
     return jsonify({"message": message}), status_code

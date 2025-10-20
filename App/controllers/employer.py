@@ -20,16 +20,3 @@ def create_employer(name, password):
     db.session.add(employer)
     db.session.commit()
     return True, f'Employer "{name}" created.'
-
-def update_employer_info(employer_id, new_company_name=None, new_password=None):
-    employer = Employer.query.get(employer_id)
-    if not employer:
-        return False, f'Employer with ID {employer_id} does not exist.'
-    if new_company_name:
-        if Employer.by_name(new_company_name) and employer.name !=new_company_name:
-            return False, f'Employer "{new_company_name}" already exists.'
-        employer.name = new_company_name
-    if new_password:
-        employer.set_password(new_password)
-    db.session.commit()
-    return True, f'Employer with ID {employer_id} updated.'

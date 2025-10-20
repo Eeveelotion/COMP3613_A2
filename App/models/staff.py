@@ -8,19 +8,17 @@ class Staff(User):
       'polymorphic_identity': 'staff',
     }
 
+    def __init__(self, name, password):
+        self.name = name
+        self.set_password(password)
+        self.user_type = 'staff'
+
     # --- Lookups ---
     @classmethod
     def by_name(cls, name: str):
         return cls.query.filter_by(name=name).first()
 
     # --- Domain behavior ---
-    def __init__(self, name, password):
-        self.name = name
-        self.set_password(password)
-        self.user_type = 'staff'
-
-    def __repr__(self):
-        return f'<Staff {self.name}>'
     
     def to_json(self):
         return {
