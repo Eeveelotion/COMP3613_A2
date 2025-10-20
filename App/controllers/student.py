@@ -2,10 +2,12 @@ from App.models import Student
 from App.database import db
 
 def get_student_by_id(student_id):
-    return Student.query.get(student_id)
+    student = Student.query.get(student_id)
+    return {'id': student.id, 'name': student.name} if student else None
 
 def get_student_by_name(name):
-    return Student.by_name(name)
+    student = Student.by_name(name)
+    return {'id': student.id, 'name': student.name} if student else None
 
 def get_all_students():
     students =Student.query.all()

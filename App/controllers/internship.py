@@ -38,11 +38,11 @@ def create_internship(employer_id, title, description=''):
     if not title or not title.strip():
         return False, "Title cannot be empty."
     
-    new_title = title=title.strip() +' ' + f'({employer.name})'
+    new_title = title.strip() +' ' + f'({employer.name})'
     if Internship.query.filter_by(title= new_title).first():
         return False, f'Internship "{title}" already exists.'
     new_internship = Internship(
-        title=title.strip() +' ' + f'({employer.name})',
+        title= new_title,
         description=(description or '').strip(),
         employer_id = employer_id
     )

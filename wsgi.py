@@ -6,17 +6,6 @@ from flask.cli import with_appcontext, AppGroup
 from App.main import create_app
 from App.database import db, get_migrate
 
-
-from App.models import (
-    User,                 
-    Employer,
-    Staff,
-    Student,
-    Internship,
-    Shortlist,
-)
-
-
 from App.controllers import *
 
 
@@ -95,7 +84,12 @@ employer_cli = AppGroup('employer', help='Employer commands')
 @click.argument('title')
 @click.argument('description', required=False, default='')
 def employer_create_position(employer_name, title, description):
-    ok, msg = create_internship(title, description)
+    employer = get_employer_by_name(employer_name)
+    if not employer:
+        print(f'Employer "{employer_name}" not found.')
+        return
+    employer_id = employer['id']
+    ok, msg = create_internship(employer_id, title, description)
     print(msg)
 
 @employer_cli.command('decide', help='Accept/Reject a student: flask employer decide <employer_name> <internship_title> <student_name> <ACCEPTED|REJECTED>')
@@ -104,19 +98,23 @@ def employer_create_position(employer_name, title, description):
 @click.argument('student_name')
 @click.argument('decision')
 def employer_decide(employer_name, internship_title, student_name, decision):
-    employer = Employer.by_name(employer_name)
+    employer = get_employer_by_name(employer_name)
     if not employer:
         print(f'Employer "{employer_name}" not found.')
         return
-    internship = Internship.by_title(internship_title)
+    internship = get_internship_by_title(internship_title)
     if not internship:
         print(f'Internship "{internship_title}" not found.')
         return
-    student = Student.by_name(student_name)
+    student = get_student_by_name(student_name)
     if not student:
         print(f'Student "{student_name}" not found.')
         return
-    ok, msg = internship.decide(employer, student, decision)
+    shortlist_entry = get_shortlist_by_student_and_internship(student['id'], internship['id'])
+    if not shortlist_entry:
+        print(f'Shortlist entry for Student "{student_name}" and Internship "{internship_title}" not found.')
+        return
+    ok, msg = update_shortlist_status(shortlist_entry['id'], employer['id'], decision)
     print(msg)
 
 app.cli.add_command(employer_cli)
@@ -131,19 +129,19 @@ staff_cli = AppGroup('staff', help='Staff commands')
 @click.argument('student_name')
 @click.argument('internship_title')
 def staff_shortlist(staff_name, student_name, internship_title):
-    staff = Staff.by_name(staff_name)
+    staff = get_staff_by_name(staff_name)
     if not staff:
         print(f'Staff "{staff_name}" not found.')
         return
-    student = Student.by_name(student_name)
+    student = get_student_by_name(student_name)
     if not student:
         print(f'Student "{student_name}" not found.')
         return
-    internship = Internship.by_title(internship_title)
+    internship = get_internship_by_title(internship_title)
     if not internship:
         print(f'Internship "{internship_title}" not found.')
         return
-    ok, msg = staff.shortlist_student(student, internship)
+    ok, msg = create_shortlist_position(student['id'], internship['id'], staff['id'])
     print(msg)
 
 app.cli.add_command(staff_cli)
@@ -156,16 +154,15 @@ student_cli = AppGroup('student', help='Student commands')
 @student_cli.command('view-shortlist', help='View shortlist: flask student view-shortlist <student_name>')
 @click.argument('student_name')
 def student_view_shortlist(student_name):
-    student = Student.by_name(student_name)
+    student = get_student_by_name(student_name)
     if not student:
         print(f'Student "{student_name}" not found.')
         return
-    items = student.shortlist_summary()
+    items = get_shortlist_by_student(student['id'])
     print(f'Found {len(items)} shortlist item(s) for {student_name}.')
     if not items:
         print('No shortlist entries.')
         return
-    for i, row in enumerate(items, start=1):
-        print(f'{i}. {row["internship"]} @ {row["employer"]} -> {row["status"]}')
+    print(items)
 
 app.cli.add_command(student_cli)

@@ -4,6 +4,21 @@ from App.database import db
 def get_shortlist_by_id(shortlist_id):
     return Shortlist.query.get(shortlist_id)
 
+def get_shortlist_by_student_and_internship(student_id, internship_id):
+    shortlist_entry = Shortlist.query.filter_by(
+        student_id=student_id,
+        internship_id=internship_id
+    ).first()
+
+    if not shortlist_entry:
+        return None
+    return {
+        'id': shortlist_entry.id,
+        'student_id': shortlist_entry.student_id,
+        'internship_id': shortlist_entry.internship_id,
+        'status': shortlist_entry.status,
+    }
+
 def get_shortlist_by_student(student_id):
     shortlisted_positions = (db.session.query(
                 Shortlist.id.label('id'),
