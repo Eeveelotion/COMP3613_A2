@@ -18,6 +18,13 @@ user_views = Blueprint('user_views', __name__, template_folder='../templates')
 @user_views.route('/auth', methods=['POST'])
 def authenticate():
     data = request.get_json()
+
+    required_fields = ['name', 'password']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+    
     access_token = jwt_authenticate(data["name"], data["password"])
     response = jsonify(access_token=access_token)
     
@@ -48,7 +55,15 @@ def list_students():
 def create_new_employer():
     if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
+
     data = request.get_json()
+
+    required_fields = ['name', 'password']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+
     success, message = create_employer(data["name"], data["password"])
     status_code = 201 if success else 400
     return jsonify({"message": message}), status_code
@@ -58,7 +73,15 @@ def create_new_employer():
 def create_new_student():
     if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
+
     data = request.get_json()
+
+    required_fields = ['name', 'password']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+
     success, message = create_student(data["name"], data["password"])
     status_code = 201 if success else 400
     return jsonify({"message": message}), status_code
@@ -74,22 +97,19 @@ def remove_user(user_id):
     status_code = 200 if success else 404
     return jsonify({"message": message}), status_code
 
-@user_views.route('/employer/<employer_id>', methods=['PUT'])
+@user_views.route('/user/<user_id>', methods=['PUT'])
 @jwt_required()
-def update_employer(employer_id):
+def update_student(user_id):
     if not is_staff(get_jwt_identity()):
         return jsonify({"Error": "Unauthorized"}), 403
     data = request.get_json()
-    success, message = update_user(employer_id, data.get("name", None), data.get("password",None))
-    status_code = 200 if success else 400
-    return jsonify({"message": message}), status_code
 
-@user_views.route('/student/<student_id>', methods=['PUT'])
-@jwt_required()
-def update_student(student_id):
-    if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
-    data = request.get_json()
-    success, message = update_user(student_id, data.get("name", None), data.get("password", None))
+    required_fields = ['name', 'password']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+
+    success, message = update_user(user_id, data.get("name", None), data.get("password", None))
     status_code = 200 if success else 400
     return jsonify({"message": message}), status_code
