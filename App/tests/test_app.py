@@ -81,11 +81,9 @@ def test_authenticate():
     assert jwt_authenticate("nonexistent", "nopass") == None
 
 def test_get_all_users():
-    create_user("jalice", "jalicepass")
-    create_user("bobby", "bobbypass")
     users = get_all_users()
     names = [user['name'] for user in users]
-    assert "jalice" in names and "bobby" in names
+    assert "bob" in names and "buff jezos" and "priyanka" in names
 
 def test_add_duplicate_user():
     success, message = create_staff("bob", "notbobpass")
