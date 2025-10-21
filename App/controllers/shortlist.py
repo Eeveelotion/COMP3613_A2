@@ -1,3 +1,4 @@
+from App.controllers.internship import get_internship_by_id
 from App.models import Shortlist, Internship, Employer, Student
 from App.database import db
 
@@ -56,19 +57,24 @@ def get_shortlist_by_internship(internship_id):
     ]
 
 def create_shortlist_position(student_id, internship_id, staff_id):
+    if get_shortlist_by_student_and_internship(student_id, internship_id) is not None:
+        return False, f'Error: Student ID {student_id} is already shortlisted for Internship ID {internship_id}.'
+
+    if get_internship_by_id(internship_id) is None:
+        return False, f'Error : Internship does not exist with id {internship_id}'
+
     new_entry = Shortlist(
         student_id=student_id,
         internship_id=internship_id,
         added_by_staff_id=staff_id,
         status="PENDING"
     )
+    
     db.session.add(new_entry)
-    try:
-        db.session.commit()
-        return True, f'Student ID {student_id} shortlisted for Internship ID {internship_id}.'
-    except Exception as e:
-        db.session.rollback()
-        return False, f'Error: Student ID {student_id} is already shortlisted for Internship ID {internship_id}.'
+    db.session.commit()
+
+    return True, f'Student ID {student_id} shortlisted for Internship ID {internship_id}.'
+    
 
 def delete_shortlist_position(shortlist_id):
     entry = Shortlist.query.get(shortlist_id)
