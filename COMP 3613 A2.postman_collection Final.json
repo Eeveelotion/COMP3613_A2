@@ -1,0 +1,2222 @@
+{
+	"info": {
+		"_postman_id": "bdb7f664-b580-408a-9262-20074588f3bf",
+		"name": "COMP 3613 A2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34853563"
+	},
+	"item": [
+		{
+			"name": "Initialize Database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body contains 'db initialized!'\", () => {\r",
+							"    pm.expect(pm.response.text()).to.include(\"db initialized!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/init",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"init"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/init",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"init"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "47336c75-7138-443f-bfc0-80b34a703a9d",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"db initialized!\"}"
+				}
+			]
+		},
+		{
+			"name": "Auth Staff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Access token returned for staff\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"    pm.environment.set('access_token_staff', jsonData['access_token']) \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alice\",\r\n    \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Alice\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						},
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "cbcb410a-f262-4362-9bca-010eb0270bba",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Content-Length",
+							"value": "50",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Get Employers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"id\",\r",
+							"        \"name\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/employers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"employers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/employers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"employers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "62bb926c-588f-4d8c-9822-ae441c27f554",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "[{\"id\":1,\"name\":\"Umbrella Corporation\"},{\"id\":2,\"name\":\"Vault-Tec\"}]"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Get Students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"id\",\r",
+							"        \"name\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/students",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/students",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"students"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "40837480-e2df-4fbe-8451-b493f37c0121",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "[{\"id\":5,\"name\":\"Shania\"},{\"id\":6,\"name\":\"Priyanka\"},{\"id\":7,\"name\":\"Diaz\"}]"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Create Employer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Employer created test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.message).to.match(/^Employer\\s+\"?.+?\"?\\s+created\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Torgue\",\r\n    \"password\": \"pass\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/employer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"employer"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Torgue\",\r\n    \"password\": \"pass\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/employer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"employer"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						},
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "2b7d0894-8c77-4b03-a8a5-64e64b68c701",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Content-Length",
+							"value": "52",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"Employer \\\"Torgue\\\" created.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Create Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Student created test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.message).to.match(/^Student\\s+\"?.+?\"?\\s+created\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mikisumresh\",\r\n    \"password\": \"pass\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/student",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mikisumresh\",\r\n    \"password\": \"pass\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/student",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"student"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						},
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "1387071b-8403-4652-aad0-b91689f1882b",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Content-Length",
+							"value": "57",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"Student \\\"Mikisumresh\\\" created.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User updated message\" , function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.match(/^User with ID\\s+.+\\s+updated\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dob\",\r\n    \"password\" : \"dobpass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/user/6",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"6"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dob\",\r\n    \"password\" : \"dobpass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/6",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"6"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						},
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "d070f2a6-6db4-40d7-8962-842c0b75f5b8",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Content-Length",
+							"value": "55",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"User with ID 6 updated.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User deleted message\" , function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.match(/^User with ID\\s+.+\\s+deleted\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/user/5",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"5"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "de637c1d-7dd6-496b-8b51-5cec859a95cc",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"User with ID 5 deleted.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Create Shortlist Position",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Shortlist position created test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.message).to.match(/^Student\\s+ID\\s+\\d+\\s+shortlisted\\s+for\\s+Internship\\s+ID\\s+\\d+\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student_id\": \"7\",\r\n    \"internship_id\": \"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/shortlist",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"shortlist"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"student_id\": \"7\",\r\n    \"internship_id\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/shortlist",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"shortlist"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\"message\":\"Student ID 7 shortlisted for Internship ID 2.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Staff) Delete Shortlist Position",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Shortlist position deleted test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.message).to.match(/^Shortlist\\s+entry\\s+with\\s+ID\\s+\\d+\\s+deleted\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/shortlist/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"shortlist",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/shortlist/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"shortlist",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"Shortlist entry with ID 1 deleted.\"}"
+				}
+			]
+		},
+		{
+			"name": "Auth Employer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Access token returned for employer\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"    pm.environment.set('access_token_employer', jsonData['access_token']) \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Vault-Tec\",\r\n    \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vault-Tec\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2NCwianRpIjoiYTE0OWViYWEtZWFhMC00M2FmLWExNzItMzMxMGZiY2IxY2Y3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjIiLCJuYmYiOjE3NjExMTE5NjQsImV4cCI6MTc2MTExMjg2NH0.up3oWpAPPAuTibci6lYo_A40LbwNLGDKxYtLGxbEQ6w\"}"
+				}
+			]
+		},
+		{
+			"name": "(Employer) Create Internship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Internship created test\", function () {\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.match(/^Internship\\s+\"?.+?\"?\\s+created\\s+by\\s+.+\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Dev Stuff\",\r\n    \"description\": \"Developing things\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/internship",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"internship"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Dev Stuff\",\r\n    \"description\": \"Developing things\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/internship",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"internship"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"Internship \\\"Dev Stuff\\\" created by Vault-Tec.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Employer) Get Employer Internships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"description\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"emplypyer_id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"title\":{\r",
+							"            \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid for Internships', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/internships",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"internships"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/internships",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"internships"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"description\":\"Development and design of user interfaces\",\"employer_id\":2,\"id\":2,\"title\":\"UX Dev Intern (Vault-Tec)\"},{\"description\":\"Developing things\",\"employer_id\":2,\"id\":3,\"title\":\"Dev Stuff (Vault-Tec)\"}]"
+				}
+			]
+		},
+		{
+			"name": "(Employer Update Internship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Internship updated message\" , function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.message).to.match(/^Internship\\s+with\\s+title\\s+\"?.+?\"?\\s+updated\\.$/);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Dev Stuff 2\",\r\n    \"description\": \"Developing things\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/internship/3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"internship",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Dev Stuff 2\",\r\n    \"description\": \"Developing things\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/internship/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"internship",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"Internship with title \\\"Dev Stuff 2\\\" updated.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Employer) Delete Internship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Internship updated message\" , function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.match(/^Internship\\s+with\\s+ID\\s+\\d+\\s+deleted\\.$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/internship/3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"internship",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/internship/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"internship",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"Internship with ID 3 deleted.\"}"
+				}
+			]
+		},
+		{
+			"name": "(Employer) Get Internship Shortlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"shortlist_id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"status\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"student\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid for Shortlist for Internship', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/shortlist/internship/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"shortlist",
+						"internship",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/shortlist/internship/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"shortlist",
+								"internship",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"id\":1,\"student_id\":7,\"internship_id\":2,\"status\":\"shortlisted\"}]"
+				}
+			]
+		},
+		{
+			"name": "(Employer) Update Shortlist Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Internship updated message\" , function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.match(/^Shortlist\\s+entry\\s+with\\s+ID\\s+\\d+\\s+updated\\s+to\\s+status\\s+\\w+\\.$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"ACcEPTED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/shortlist/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"shortlist",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "(Employer) Update Shortlist Status",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"ACcEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/shortlist/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"shortlist",
+								"2"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\n    \"message\": \"Shortlist entry with ID 2 updated to status ACCEPTED.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Auth Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Access token returned for student\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"    pm.environment.set('access_token_student', jsonData['access_token']) \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Diaz\",\r\n    \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Auth Student",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Diaz\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMzI1NywianRpIjoiZGVhMTNhZDItNGY5Yi00Yzc1LTlhMTUtOTZjYTc5YTE3ZDQ1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjciLCJuYmYiOjE3NjExMTMyNTcsImV4cCI6MTc2MTExNDE1N30.aNWFJ4zZ5XrM7LG9eB1aF3DQwUYbeMoCnUz8dqhFHa8\"\n}"
+				}
+			]
+		},
+		{
+			"name": "(Student) Get Student's Shortlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"employer\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"internship\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"shortlist_id\": {\r",
+							"            \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"status\":{\r",
+							"            \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid for Shortlist for student', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/shortlist/student/7",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"shortlist",
+						"student",
+						"7"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example from latest run",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.49.0"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "40837480-e2df-4fbe-8451-b493f37c0121"
+							},
+							{
+								"key": "Host",
+								"value": "127.0.0.1:8080"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/shortlist/student/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"shortlist",
+								"student",
+								"7"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "User-Agent",
+							"value": "PostmanRuntime/7.49.0",
+							"description": ""
+						},
+						{
+							"key": "Accept",
+							"value": "*/*",
+							"description": ""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": ""
+						},
+						{
+							"key": "Postman-Token",
+							"value": "40837480-e2df-4fbe-8451-b493f37c0121",
+							"description": ""
+						},
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8080",
+							"description": ""
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"key": "Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"id\":5,\"name\":\"Shania\"},{\"id\":6,\"name\":\"Priyanka\"},{\"id\":7,\"name\":\"Diaz\"}]"
+				}
+			]
+		}
+	]
+}
