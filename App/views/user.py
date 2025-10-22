@@ -38,7 +38,7 @@ def authenticate():
 @jwt_required()
 def list_employers():
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
     employers = get_all_employers()
     return jsonify(employers), 200
 
@@ -46,7 +46,7 @@ def list_employers():
 @jwt_required()
 def list_students():
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
     students = get_all_students()
     return jsonify(students), 200
 
@@ -54,7 +54,7 @@ def list_students():
 @jwt_required()
 def create_new_employer():
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
 
     data = request.get_json()
 
@@ -72,7 +72,7 @@ def create_new_employer():
 @jwt_required()
 def create_new_student():
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
 
     data = request.get_json()
 
@@ -92,7 +92,7 @@ def remove_user(user_id):
     if get_user(user_id) is None:
         return jsonify({"Error": "User not found"}), 404
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
     success, message = delete_user(user_id)
     status_code = 200 if success else 404
     return jsonify({"message": message}), status_code
@@ -101,7 +101,7 @@ def remove_user(user_id):
 @jwt_required()
 def update_student(user_id):
     if not is_staff(get_jwt_identity()):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
     data = request.get_json()
 
     required_fields = ['name', 'password']

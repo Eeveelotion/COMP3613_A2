@@ -1,6 +1,6 @@
 from .user import create_user
 from App.database import db
-from App.models import Employer, Staff, Student, Internship
+from App.models import Employer, Staff, Student, Internship, Shortlist
 
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -42,6 +42,15 @@ def initialize():
     )
 
     db.session.add_all([i1, i2])
+    db.session.commit()
+
+    shortlist1 = Shortlist(
+        internship_id = i1.id,
+        student_id = st3.id,
+        added_by_staff_id = s1.id
+    )
+
+    db.session.add(shortlist1)
     db.session.commit()
 
     print("Database initialized and seeded with Employers, Staff, Students, and Internships.")

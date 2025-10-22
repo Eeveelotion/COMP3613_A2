@@ -21,7 +21,7 @@ shortlist_views = Blueprint('shortlist_views', __name__, template_folder='../tem
 def get_internship_shortlist(internship_id):
     employer_id = get_jwt_identity()
     if not belongs_to_employer(internship_id, employer_id):
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, you do not own the internship for this shortlist"}), 403
     shortlisted_students = get_shortlist_by_internship(internship_id)
     return jsonify(shortlisted_students), 200
 
@@ -30,7 +30,7 @@ def get_internship_shortlist(internship_id):
 def get_student_shortlist(student_id):
     student_id = get_jwt_identity()
     if is_student(student_id) is False:
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, you can not view this shortlist"}), 403
     shortlisted_positions = get_shortlist_by_student(student_id)
     return jsonify(shortlisted_positions), 200
 
@@ -39,8 +39,16 @@ def get_student_shortlist(student_id):
 def create_new_shortlist_position():
     staff_id = get_jwt_identity()
     if is_staff(staff_id) is False:
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, only staff allowed"}), 403
+    
     data = request.get_json()
+
+    required_fields = ['student_id', 'internship_id']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+
     success, message = create_shortlist_position(
         data['student_id'],
         data['internship_id'],
@@ -58,7 +66,7 @@ def remove_shortlist_position(shortlist_id):
         return jsonify({"Error": "Shortlist position not found"}), 404
 
     if is_staff(staff_id) is None:
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorizedm only staff allowed"}), 403
     success, message = delete_shortlist_position(shortlist_id)
     status_code = 200 if success else 400
     return jsonify({"message": message}), status_code
@@ -68,8 +76,15 @@ def remove_shortlist_position(shortlist_id):
 def change_shortlist_status(shortlist_id):
     employer_id = get_jwt_identity()
     if is_employer(employer_id) is False:
-        return jsonify({"Error": "Unauthorized"}), 403
+        return jsonify({"Error": "Unauthorized, you do not own this internship"}), 403
     data = request.get_json()
+
+    required_fields = ['status']
+    missing = [field for field in required_fields if field not in data]
+
+    if missing:
+        return jsonify({'error': f'Missing fields: {missing}'}), 400
+
     success, message = update_shortlist_status(
         shortlist_id,
         employer_id,

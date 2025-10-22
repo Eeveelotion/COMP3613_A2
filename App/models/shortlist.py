@@ -10,3 +10,8 @@ class Shortlist(db.Model):
 
     __table_args__ = (db.UniqueConstraint('internship_id', 'student_id', name='shortlist_unique_pair'),)
 
+    def __init__(self, internship_id, student_id, added_by_staff_id,status='PENDING'):
+        self.internship_id = internship_id
+        self.student_id = student_id
+        self.added_by_staff_id = added_by_staff_id
+        self.status = status
