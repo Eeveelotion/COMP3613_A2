@@ -1927,7 +1927,6 @@
 						{
 							"key": "Content-Type",
 							"value": "application/json",
-							"name": "Content-Type",
 							"description": "",
 							"type": "text"
 						}
@@ -2015,7 +2014,6 @@
 						{
 							"key": "Content-Type",
 							"value": "application/json",
-							"name": "Content-Type",
 							"description": "",
 							"type": "text"
 						}
@@ -2113,40 +2111,7 @@
 					"name": "Example from latest run",
 					"originalRequest": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "User-Agent",
-								"value": "PostmanRuntime/7.49.0"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							},
-							{
-								"key": "Cache-Control",
-								"value": "no-cache"
-							},
-							{
-								"key": "Postman-Token",
-								"value": "40837480-e2df-4fbe-8451-b493f37c0121"
-							},
-							{
-								"key": "Host",
-								"value": "127.0.0.1:8080"
-							},
-							{
-								"key": "Accept-Encoding",
-								"value": "gzip, deflate, br"
-							},
-							{
-								"key": "Connection",
-								"value": "keep-alive"
-							},
-							{
-								"key": "Cookie",
-								"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTExMTk2MywianRpIjoiMzg1N2M3ZTMtOGI4My00OGM2LWIxYmItYTc5MDUzODYyZTJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NjExMTE5NjMsImV4cCI6MTc2MTExMjg2M30.ekfFia_aPoxL3JvSSfOeyXuBOrRKe2onxnSyEawCc90"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
